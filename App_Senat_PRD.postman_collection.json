@@ -1,0 +1,801 @@
+{
+	"info": {
+		"_postman_id": "75a98600-af29-40d2-a50d-f095a7c5ef21",
+		"name": "App Senat PRD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12784848"
+	},
+	"item": [
+		{
+			"name": "auth-jwt",
+			"item": [
+				{
+					"name": "/auth-jwt/login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@senat.com\",\r\n    \"password\": \"adsenat123\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/auth-jwt/login",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"auth-jwt",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "invitation/register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "invitationToken",
+								"value": "inv token",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"b@yahoo.com\",\r\n    \"password\": \"123\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/invitation/register",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"invitation",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "invitation",
+			"item": [
+				{
+					"name": "Invitation",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG1pbkBzZW5hdC5jb20iLCJpYXQiOjE2NTg3NzI2NDAsImV4cCI6MTY1ODg1OTA0MH0.SoSE1E28rGGOltpRrApgklyWZeTDKEie2VT7ie9sOsY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"birghisanteodor@yahoo.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/invitation",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"invitation"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "meeting",
+			"item": [
+				{
+					"name": "/meetings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTMsImVtYWlsIjoiYUB5YWhvby5jb20iLCJpYXQiOjE2NDY1NzI4OTAsImV4cCI6MTY0NjY1OTI5MH0.DZ_0y6iKNyfpfT_VaOJ3vBhgfnHJNgBr_baiqZh8uzs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/meetings",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"meetings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/meetings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG1pbkBzZW5hdC5jb20iLCJpYXQiOjE2NTg3NzI2NDAsImV4cCI6MTY1ODg1OTA0MH0.SoSE1E28rGGOltpRrApgklyWZeTDKEie2VT7ie9sOsY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"test title PRD\",\r\n    \"startDate\": \"2022-07-26T14:55:00.000\",\r\n    \"description\": \"Test description\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/meetings",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"meetings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "meetings/:meetingId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG1pbkBzZW5hdC5jb20iLCJpYXQiOjE2NTg3NzI2NDAsImV4cCI6MTY1ODg1OTA0MH0.SoSE1E28rGGOltpRrApgklyWZeTDKEie2VT7ie9sOsY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/meetings/:meetingId",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"meetings",
+								":meetingId"
+							],
+							"variable": [
+								{
+									"key": "meetingId",
+									"value": "76"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/meetings/finished",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG1pbkBzZW5hdC5jb20iLCJpYXQiOjE2NTg4NTUyMjQsImV4cCI6MTY1ODk0MTYyNH0.QHXBsW0VMOwdFn4a8SjpPiuOGZQDDSzltCvkjzrH2eY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/meetings/finished",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"meetings",
+								"finished"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "participation",
+			"item": [
+				{
+					"name": "participation/joinMeeting/:meetingId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG1pbkBzZW5hdC5jb20iLCJpYXQiOjE2NTg4NTUyMjQsImV4cCI6MTY1ODk0MTYyNH0.QHXBsW0VMOwdFn4a8SjpPiuOGZQDDSzltCvkjzrH2eY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/participation/joinMeeting/:meetingId",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"participation",
+								"joinMeeting",
+								":meetingId"
+							],
+							"variable": [
+								{
+									"key": "meetingId",
+									"value": "77"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "participation/exitMeeting/:meetingId",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/participation/exitMeeting/:meetingId/:userId",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"participation",
+								"exitMeeting",
+								":meetingId",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "meetingId",
+									"value": null
+								},
+								{
+									"key": "userId",
+									"value": "77"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "participation/allUsers/:meetingId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG1pbkBzZW5hdC5jb20iLCJpYXQiOjE2NTg4NTUyMjQsImV4cCI6MTY1ODk0MTYyNH0.QHXBsW0VMOwdFn4a8SjpPiuOGZQDDSzltCvkjzrH2eY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/participation/allUsers/:meetingId",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"participation",
+								"allUsers",
+								":meetingId"
+							],
+							"variable": [
+								{
+									"key": "meetingId",
+									"value": "77"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "topic",
+			"item": [
+				{
+					"name": "/topics/:meetingId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG1pbkBzZW5hdC5jb20iLCJpYXQiOjE2NTg4NTUyMjQsImV4cCI6MTY1ODk0MTYyNH0.QHXBsW0VMOwdFn4a8SjpPiuOGZQDDSzltCvkjzrH2eY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/topics/:meetingId",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"topics",
+								":meetingId"
+							],
+							"variable": [
+								{
+									"key": "meetingId",
+									"value": "48"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/topics/:meetingId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG1pbkBzZW5hdC5jb20iLCJpYXQiOjE2NTg4NTUyMjQsImV4cCI6MTY1ODk0MTYyNH0.QHXBsW0VMOwdFn4a8SjpPiuOGZQDDSzltCvkjzrH2eY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"topic vot test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/topics/:meetingId",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"topics",
+								":meetingId"
+							],
+							"variable": [
+								{
+									"key": "meetingId",
+									"value": "77"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/topics/:meetingId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG1pbkBzZW5hdC5jb20iLCJpYXQiOjE2NTg4NTUyMjQsImV4cCI6MTY1ODk0MTYyNH0.QHXBsW0VMOwdFn4a8SjpPiuOGZQDDSzltCvkjzrH2eY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"topicId\": 66\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/topics/:meetingId",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"topics",
+								":meetingId"
+							],
+							"variable": [
+								{
+									"key": "meetingId",
+									"value": "77"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/topics/activate/:topicId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG1pbkBzZW5hdC5jb20iLCJpYXQiOjE2NTg4NTUyMjQsImV4cCI6MTY1ODk0MTYyNH0.QHXBsW0VMOwdFn4a8SjpPiuOGZQDDSzltCvkjzrH2eY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/topics/activate/:topicId",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"topics",
+								"activate",
+								":topicId"
+							],
+							"variable": [
+								{
+									"key": "topicId",
+									"value": "12"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "vote",
+			"item": [
+				{
+					"name": "vote/:topicId/:userId",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"voteValue\": \"NO\"  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/vote/:topicId/:userId",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"vote",
+								":topicId",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "topicId",
+									"value": "31"
+								},
+								{
+									"key": "userId",
+									"value": "9"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "vote/:userId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG1pbkBzZW5hdC5jb20iLCJpYXQiOjE2NTg4NTUyMjQsImV4cCI6MTY1ODk0MTYyNH0.QHXBsW0VMOwdFn4a8SjpPiuOGZQDDSzltCvkjzrH2eY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"topicId\": 65\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/vote/:userId",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"vote",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "vote/result/:topicId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG1pbkBzZW5hdC5jb20iLCJpYXQiOjE2NTg4NTUyMjQsImV4cCI6MTY1ODk0MTYyNH0.QHXBsW0VMOwdFn4a8SjpPiuOGZQDDSzltCvkjzrH2eY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/vote/result/:topicId",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"vote",
+								"result",
+								":topicId"
+							],
+							"variable": [
+								{
+									"key": "topicId",
+									"value": "65"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "vote/detailed/:topicId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG1pbkBzZW5hdC5jb20iLCJpYXQiOjE2NTg4NTUyMjQsImV4cCI6MTY1ODk0MTYyNH0.QHXBsW0VMOwdFn4a8SjpPiuOGZQDDSzltCvkjzrH2eY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/vote/detailed/:topicId",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"vote",
+								"detailed",
+								":topicId"
+							],
+							"variable": [
+								{
+									"key": "topicId",
+									"value": "65"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user-role",
+			"item": [
+				{
+					"name": "/user-role/available/users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG1pbkBzZW5hdC5jb20iLCJpYXQiOjE2NTg4NTUyMjQsImV4cCI6MTY1ODk0MTYyNH0.QHXBsW0VMOwdFn4a8SjpPiuOGZQDDSzltCvkjzrH2eY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/user-role/available/users",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"user-role",
+								"available",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJhZG1pbkBzZW5hdC5jb20iLCJpYXQiOjE2NTg4NTUyMjQsImV4cCI6MTY1ODk0MTYyNH0.QHXBsW0VMOwdFn4a8SjpPiuOGZQDDSzltCvkjzrH2eY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userId\": 3,\r\n    \"roles\": [\"CAN_CREATE_MEETINGS\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://vot-senat.herokuapp.com/user-role/grant",
+							"protocol": "https",
+							"host": [
+								"vot-senat",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"user-role",
+								"grant"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
