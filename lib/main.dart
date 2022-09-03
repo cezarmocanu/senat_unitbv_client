@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:senat_unit_bv/pages/login.dart';
 import 'package:senat_unit_bv/pages/main_scaffold.dart';
@@ -10,7 +9,7 @@ import 'package:senat_unit_bv/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
-  await dotenv.load(fileName: ".env");
+  WidgetsFlutterBinding.ensureInitialized();
   await SharedPreferences.getInstance();
   runApp(
     MultiProvider(

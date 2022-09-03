@@ -24,7 +24,9 @@ class UserSlice extends ChangeNotifier {
 
       isAuth = true;
       permissions = PermissionSchema(role);
-      currentUser = User.fromJson(json.decode(response.body));
+
+      await checkAuth();
+
       return true;
     }
 
