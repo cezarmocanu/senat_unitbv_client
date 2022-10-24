@@ -12,4 +12,7 @@ class API {
   static final joinMeeting = (int meetingId) => "${host}/participation/joinMeeting/$meetingId";
   static final exitMeeting = (int meetingId) => "${host}/participation/exitMeeting/$meetingId";
   static final participants = (int meetingId) => "${host}/participation/allUsers/$meetingId";
+  static final rolesUsers = "${host}/user-role/available/users";
+  static final roleUsersPermissions = "${host}/user-role/users/permissions";
+  static final updatePermissions = "${host}/user-role/update/permissions";
 }
