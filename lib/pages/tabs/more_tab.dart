@@ -53,9 +53,9 @@ class _MoreTabState extends State<MoreTab> {
                   ),
                   const Divider(),
                 ],
-                if (Provider.of<UserSlice>(context, listen: false).permissions.canEditRoles) ...[
+                if (Provider.of<UserSlice>(context, listen: false).permissions.canEditRoles || true) ...[
                   ListTile(
-                    title: Text("Roluri"),
+                    title: Text("Permissiuni"),
                     leading: Icon(Icons.verified_user_outlined),
                     trailing: Icon(Icons.chevron_right),
                     dense: true,

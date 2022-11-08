@@ -11,19 +11,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 class UserSlice extends ChangeNotifier {
   bool isAuth = false;
   User? currentUser;
-  PermissionSchema permissions = PermissionSchema("");
+  PermissionSchema permissions = PermissionSchema([]);
 
   Future<bool> logIn({required String email, required String password}) async {
     final response = await UserService.instance.login(email: email, password: password);
 
     if (response.statusCode == HttpStatus.created) {
       final prefs = await SharedPreferences.getInstance();
-      final String role = json.decode(response.body)["role"];
+      final List<String> permissionsList = List<String>.from((json.decode(response.body)["permissions"]).map((value) => value as String));
       prefs.setString(SharedPrefsKeys.token, json.decode(response.body)["accessToken"]);
-      prefs.setString(SharedPrefsKeys.role, role);
+      prefs.setString(SharedPrefsKeys.role, jsonEncode(permissionsList));
 
       isAuth = true;
-      permissions = PermissionSchema(role);
+      permissions = PermissionSchema(permissionsList);
 
       await checkAuth();
 
@@ -37,12 +37,12 @@ class UserSlice extends ChangeNotifier {
   Future<bool> checkAuth() async {
     final response = await UserService.instance.profile();
     final prefs = await SharedPreferences.getInstance();
-    final String role = prefs.getString(SharedPrefsKeys.role) ?? "";
+    final List<String> permissionsList = List<String>.from((jsonDecode(prefs.getString(SharedPrefsKeys.role) ?? "[]") as List).map((value) => value));
 
-    if (response.statusCode == HttpStatus.ok && role.isNotEmpty) {
+    if (response.statusCode == HttpStatus.ok && permissionsList.isNotEmpty) {
       isAuth = true;
       currentUser = User.fromJson(json.decode(response.body));
-      permissions = PermissionSchema(role);
+      permissions = PermissionSchema(permissionsList);
       return true;
     }
 
@@ -53,7 +53,7 @@ class UserSlice extends ChangeNotifier {
 
   Future<bool> logOut() async {
     isAuth = false;
-    permissions = PermissionSchema("");
+    permissions = PermissionSchema([]);
     currentUser = null;
     final prefs = await SharedPreferences.getInstance();
     prefs.remove(SharedPrefsKeys.token);

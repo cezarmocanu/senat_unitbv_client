@@ -1,10 +1,14 @@
-import 'package:senat_unit_bv/constants/roles.dart';
+import 'package:senat_unit_bv/constants/permissions.dart';
 
 class PermissionSchema {
-  final String role;
+  final List<String> permissions;
 
   late bool canInvite;
   late bool canEditRoles;
+  late bool canGrantAllRoles;
+  late bool canGrantPresident;
+  late bool canGrantVicePresident;
+  late bool canGrantSenator;
 
   late bool canCreateMeeting;
   late bool canPrepareMeeting;
@@ -14,16 +18,22 @@ class PermissionSchema {
   late bool canActivateTopic;
   late bool canVoteTopic;
 
-  PermissionSchema(this.role) {
-    canInvite = [Roles.ADMIN, Roles.PRESIDENT].contains(role);
-    canEditRoles = [Roles.ADMIN, Roles.PRESIDENT].contains(role);
+  PermissionSchema(this.permissions) {
+    canInvite = permissions.contains(Permissions.CAN_CREATE_INVITATION);
+    canEditRoles = permissions.contains(Permissions.CAN_GRANT_PERMISSIONS_ALL) ||
+        permissions.contains(Permissions.CAN_GRANT_PERMISSIONS_PRESIDENT) ||
+        permissions.contains(Permissions.CAN_GRANT_PERMISSIONS_VICEPRESIDENT);
 
-    canCreateMeeting = [Roles.ADMIN, Roles.PRESIDENT].contains(role);
-    canPrepareMeeting = [Roles.ADMIN, Roles.PRESIDENT].contains(role);
-    canDeleteMeeting = [Roles.ADMIN, Roles.PRESIDENT].contains(role);
+    canGrantAllRoles = permissions.contains(Permissions.CAN_GRANT_PERMISSIONS_ALL);
+    canGrantPresident = permissions.contains(Permissions.CAN_GRANT_PERMISSIONS_PRESIDENT);
+    canGrantVicePresident = permissions.contains(Permissions.CAN_GRANT_PERMISSIONS_VICEPRESIDENT);
 
-    canCreateTopic = [Roles.ADMIN, Roles.PRESIDENT].contains(role);
-    canActivateTopic = [Roles.ADMIN, Roles.PRESIDENT].contains(role);
-    canVoteTopic = [Roles.ADMIN, Roles.PRESIDENT, Roles.SENATOR].contains(role);
+    canCreateMeeting = permissions.contains(Permissions.CAN_CREATE_MEETING);
+    canPrepareMeeting = permissions.contains(Permissions.CAN_CREATE_MEETING);
+    canDeleteMeeting = permissions.contains(Permissions.CAN_DELETE_MEETING);
+
+    canCreateTopic = permissions.contains(Permissions.CAN_CREATE_MEETING);
+    canActivateTopic = permissions.contains(Permissions.CAN_GRANT_PERMISSIONS_PRESIDENT);
+    canVoteTopic = permissions.contains(Permissions.CAN_VOTE);
   }
 }

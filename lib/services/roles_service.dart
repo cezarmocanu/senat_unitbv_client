@@ -18,7 +18,7 @@ class RolesService {
 
     try {
       final response = await get(
-        Uri.parse(API.rolesUsers),
+        Uri.parse(API.permissionsUsers),
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
           HttpHeaders.authorizationHeader: "Bearer ${token ?? ""}",
@@ -37,7 +37,7 @@ class RolesService {
 
     try {
       final response = await get(
-        Uri.parse(API.roleUsersPermissions),
+        Uri.parse(API.permissionsUsers),
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
           HttpHeaders.authorizationHeader: "Bearer ${token ?? ""}",

@@ -3,9 +3,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 import 'package:senat_unit_bv/constants/permissions.dart';
 import 'package:senat_unit_bv/model/user/user.dart';
 import 'package:senat_unit_bv/services/roles_service.dart';
+import 'package:senat_unit_bv/store/user_slice.dart';
 import 'package:senat_unit_bv/theme.dart';
 
 class RolesBs {
@@ -27,15 +29,20 @@ class _Bs extends StatefulWidget {
 class _BsState extends State<_Bs> {
   late List<User> _users;
   late bool _loading;
+  late List<String> _availablePermission;
 
   @override
   void initState() {
     super.initState();
     _users = [];
     _loading = false;
+    _availablePermission = [];
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _getUsers();
+      setState(() {
+        _availablePermission = _selectAvailablePermissions();
+      });
     });
   }
 
@@ -101,20 +108,20 @@ class _BsState extends State<_Bs> {
                                           visualDensity: VisualDensity.compact,
                                           checkColor: Colors.white,
                                           activeColor: AppPalette.primaryColor,
-                                          value: _users[index].permissions.contains(Permissions.toList().elementAt(permissionIndex)),
+                                          value: _users[index].permissions.contains(_availablePermission.elementAt(permissionIndex)),
                                           onChanged: (bool? value) {
                                             _updateRole(
                                               _users[index],
-                                              Permissions.toList().elementAt(permissionIndex),
-                                              !_users[index].permissions.contains(Permissions.toList().elementAt(permissionIndex)),
+                                              _availablePermission.elementAt(permissionIndex),
+                                              !_users[index].permissions.contains(_availablePermission.elementAt(permissionIndex)),
                                             );
                                           },
                                         ),
-                                        Text(Permissions.translationMap[Permissions.toList().elementAt(permissionIndex)] ?? "ROL INVALID"),
+                                        Text(Permissions.translationMap[_availablePermission.elementAt(permissionIndex)] ?? "ROL INVALID"),
                                       ],
                                     );
                                   },
-                                  itemCount: Permissions.toList().length,
+                                  itemCount: _availablePermission.length,
                                 ),
                               ],
                             )
@@ -133,12 +140,46 @@ class _BsState extends State<_Bs> {
     );
   }
 
+  List<String> _selectAvailablePermissions() {
+    final permissions = Provider.of<UserSlice>(context, listen: false).permissions;
+    final permissionStrings = Permissions.toList();
+
+    if (permissions.canGrantAllRoles) {
+      final List<String> excluded = [
+        Permissions.CAN_GRANT_PERMISSIONS_ALL,
+      ];
+      permissionStrings.removeWhere((permission) => excluded.contains(permission));
+      return permissionStrings;
+    }
+
+    if (permissions.canGrantPresident) {
+      final List<String> excluded = [
+        Permissions.CAN_GRANT_PERMISSIONS_ALL,
+        Permissions.CAN_GRANT_PERMISSIONS_PRESIDENT,
+      ];
+      permissionStrings.removeWhere((permission) => excluded.contains(permission));
+      return permissionStrings;
+    }
+
+    if (permissions.canGrantVicePresident) {
+      final List<String> excluded = [
+        Permissions.CAN_GRANT_PERMISSIONS_ALL,
+        Permissions.CAN_GRANT_PERMISSIONS_PRESIDENT,
+        Permissions.CAN_GRANT_PERMISSIONS_VICEPRESIDENT,
+      ];
+      permissionStrings.removeWhere((permission) => excluded.contains(permission));
+      return permissionStrings;
+    }
+
+    return [];
+  }
+
   Future<void> _getUsers() async {
     setState(() => _loading = true);
     Response r = await RolesService.instance.getPermissions();
 
     if (r.statusCode == HttpStatus.ok) {
-      final valuesList = (json.decode(r.body) as List).map((el) => User.fromJson(el)).toList();
+      final valuesList = (json.decode(r.body) as List).where((el) => el != null).map((el) => User.fromJson(el)).toList();
       setState(() {
         _users = valuesList;
       });
