@@ -34,6 +34,11 @@ class UserSlice extends ChangeNotifier {
     return false;
   }
 
+  Future<bool> register({required String email, required String password, required String token}) async {
+    final response = await UserService.instance.register(email: email, password: password, token: token);
+    return response.statusCode == HttpStatus.created;
+  }
+
   Future<bool> checkAuth() async {
     final response = await UserService.instance.profile();
     final prefs = await SharedPreferences.getInstance();

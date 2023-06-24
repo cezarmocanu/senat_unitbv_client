@@ -4,6 +4,7 @@ class API {
   static final login = "${host}/auth-jwt/login";
   static final profile = "${host}/auth-jwt/profile";
   static final invitation = "${host}/invitation";
+  static final invitationRegister = "${host}/auth-jwt/invitation/register";
   static final meetings = "${host}/meetings";
   static final meetingsHistory = "${host}/meetings/finished";
   static final deleteMeeting = (int meetingId) => "${host}/meetings/$meetingId";

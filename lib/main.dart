@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:senat_unit_bv/pages/login.dart';
 import 'package:senat_unit_bv/pages/main_scaffold.dart';
+import 'package:senat_unit_bv/pages/register.dart';
 import 'package:senat_unit_bv/pages/splash_page.dart';
 import 'package:senat_unit_bv/store/meeting_slice.dart';
 import 'package:senat_unit_bv/store/user_slice.dart';
@@ -31,10 +32,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Senat Unitbv',
       theme: AppTheme.themeData,
-      initialRoute: '/',
+      initialRoute: '/register',
       routes: {
         '/': (context) => SplashPage(),
         '/login': (context) => const LoginPage(),
+        '/register': (context) => const RegisterPage(),
         '/main': (context) => MainScaffoldPage(),
       },
     );

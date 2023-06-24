@@ -51,4 +51,28 @@ class UserService {
       return Response("{}", 410);
     }
   }
+
+  Future<Response> register({
+    required String email,
+    required String password,
+    required String token,
+  }) async {
+    try {
+      final response = await post(
+        Uri.parse(API.invitationRegister),
+        body: json.encode({
+          "email": email,
+          "password": password,
+        }),
+        headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+          'invitationToken': token,
+        },
+      );
+
+      return response;
+    } on Exception catch (_) {
+      return Response("{}", 410);
+    }
+  }
 }

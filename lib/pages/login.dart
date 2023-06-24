@@ -96,10 +96,18 @@ class _LoginPageState extends State<LoginPage> {
                 if (isLoading) ...[
                   const CircularProgressIndicator(),
                 ] else ...[
-                  ElevatedButton(
-                    onPressed: () => _handleLogin(),
-                    child: const Text("Conectare"),
-                  ),
+                  Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => _handleLogin(),
+                        child: const Text("Conectare"),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil("/register", (_) => false),
+                        child: const Text("Inregistrare"),
+                      ),
+                    ],
+                  )
                 ],
               ],
             ),
