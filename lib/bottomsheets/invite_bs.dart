@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:senat_unit_bv/theme.dart';
 
 class InviteBs {
-  static void show(BuildContext context) {
-    showModalBottomSheet<void>(
+  static Future show(BuildContext context) {
+    return showModalBottomSheet<void>(
       context: context,
       useRootNavigator: true,
       isScrollControlled: true,
@@ -18,6 +18,14 @@ class _Bs extends StatefulWidget {
 }
 
 class _BsState extends State<_Bs> {
+  late TextEditingController _emailController;
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController = TextEditingController();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -50,6 +58,7 @@ class _BsState extends State<_Bs> {
                   child: Column(
                     children: [
                       TextFormField(
+                        controller: _emailController,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(color: AppPalette.primaryColor),
@@ -72,12 +81,16 @@ class _BsState extends State<_Bs> {
                     Text('Trimite invitatie'),
                   ],
                 ),
-                onPressed: () => Navigator.pop(context),
+                onPressed: _handleOnInvite,
               )
             ],
           ),
         ),
       ),
     );
+  }
+
+  void _handleOnInvite() {
+    Navigator.of(context).pop(_emailController.text);
   }
 }

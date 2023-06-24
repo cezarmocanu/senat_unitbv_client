@@ -1,11 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:senat_unit_bv/bottomsheets/invite_bs.dart';
 import 'package:senat_unit_bv/bottomsheets/roles_bs.dart';
-import 'package:senat_unit_bv/components/meeting_card.dart';
-import 'package:senat_unit_bv/components/meeting_history_card.dart';
-import 'package:senat_unit_bv/constants/roles.dart';
+import 'package:senat_unit_bv/services/invitation_service.dart';
+import 'package:senat_unit_bv/services/meeting_service.dart';
 import 'package:senat_unit_bv/store/user_slice.dart';
 
 class MoreTab extends StatefulWidget {
@@ -49,7 +51,7 @@ class _MoreTabState extends State<MoreTab> {
                     leading: Icon(Icons.mail_outline),
                     trailing: Icon(Icons.chevron_right),
                     dense: true,
-                    onTap: () => InviteBs.show(context),
+                    onTap: _handleInviteBs,
                   ),
                   const Divider(),
                 ],
@@ -81,5 +83,33 @@ class _MoreTabState extends State<MoreTab> {
         ),
       ),
     );
+  }
+
+  void _handleInviteBs() {
+    InviteBs.show(context).then((config) async {
+      if (config == null) {
+        return;
+      }
+
+      Response response = await InvitationService.instance.invite(config);
+
+      if (response.statusCode == HttpStatus.created) {
+        const snackBar = SnackBar(
+          backgroundColor: Colors.green,
+          content: Text('Invitatie trimisa cu success'),
+        );
+
+        //TODO add meeting to list
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        return;
+      }
+
+      const snackBar = SnackBar(
+        backgroundColor: Colors.red,
+        content: Text('Invitatia nu a putut fi trimsa'),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    });
   }
 }
